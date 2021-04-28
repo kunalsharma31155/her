@@ -15,8 +15,7 @@ app.get('/*', (req, res) => {
 
   app.use(csp({
     directives: {
-      defaultSrc: ["'self'"],
-      styleSrc: ["'self'", 'maxcdn.bootstrapcdn.com']
+      defaultSrc: ["'self'",'https://bet-devv.herokuapp.com']
     }
   }))
 var PORT = process.env.PORT || 5000;

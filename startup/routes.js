@@ -10,7 +10,6 @@ const user = require('../api/user.router');
 
 
 module.exports = function(app){
-    app.use(helmet());
     app.use(bodyParser.urlencoded());
     app.use(bodyParser.json());
     app.use(cors());
