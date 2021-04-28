@@ -18,13 +18,6 @@ app.get('/*', (req, res) => {
       defaultSrc: ["'self'",'https://bet-devv.herokuapp.com']
     }
   }))
-  app.Use(async (ctx, next) =>
-        {
-            ctx.Response.Headers.Add("Content-Security-Policy",
-            "default-src 'self'; script-src 'self' https://bet-devv.herokuapp.com; " +
-            "style-src 'self' https://maxcdn.bootstrapcdn.com" );
-            await next();
-        });
 var PORT = process.env.PORT || 5000;
 var serverhost = process.env.YOUR_HOST || '0.0.0.0';
 
