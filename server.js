@@ -13,11 +13,6 @@ app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, '/client', 'index.html'))
 })
 
-  app.use(csp({
-    directives: {
-      defaultSrc: ["'self'",'https://bet-devv.herokuapp.com']
-    }
-  }))
 var PORT = process.env.PORT || 5000;
 var serverhost = process.env.YOUR_HOST || '0.0.0.0';
 
