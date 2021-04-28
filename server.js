@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const csp = require('helmet-csp')
+
 // require('./config/config');
 require('./startup/prod') (app);
 require('./models/db');
@@ -18,6 +20,12 @@ app.use(function (req, res, next) {
     );
     next();
   });
+  app.use(csp({
+    directives: {
+      defaultSrc: ["'self'"],
+      styleSrc: ["'self'", 'maxcdn.bootstrapcdn.com']
+    }
+  }))
 var PORT = process.env.PORT || 5000;
 var serverhost = process.env.YOUR_HOST || '0.0.0.0';
 
