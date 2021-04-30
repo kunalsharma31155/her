@@ -34,7 +34,6 @@ const userSchema = new mongooose.Schema({
     },
     userLoginId : {
         type : String,
-        unique: true,
     },
     password : {
         type : String,
