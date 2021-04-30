@@ -32,9 +32,6 @@ const userSchema = new mongooose.Schema({
         type : String,
         required: true
     },
-    userLoginId : {
-        type : String,
-    },
     password : {
         type : String,
         minlength: 7,

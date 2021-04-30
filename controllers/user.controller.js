@@ -12,14 +12,14 @@ module.exports.register =  async (req,res,next) => {
         user = await User.findOne({ email: req.body.email });
         if(user) return res.status(400).json({ type: "Invalid", msg: "User is already registered with this Email Or UserId."});
         
-        user = new User(_.pick(req.body, ['firstName','lastName','dateOfBirth','email','password','countryCode','phoneNo','userLoginId','latitude','longitude','activeStatus']));
+        user = new User(_.pick(req.body, ['firstName','lastName','dateOfBirth','email','password','countryCode','phoneNo','latitude','longitude','activeStatus']));
         const salt = await bcrypt.genSalt(10);
         
         await user.save(async(err, doc) => {
             if(!err) {
                 const token = jwt.sign({ _id: user._id ,name:user.firstName }, 'gambling_jwtprivatekey',{ expiresIn : '2h'});
                 const refreshToken = jwt.sign({ _id: user._id  }, 'gambling_refreshtoken',{ expiresIn : '1y'});
-                res.status(200).header('x-auth-token',token).send( [_.pick(user, ['_id','firstName','lastName','userLoginId','email','activeStatus']), {'success':true}]);
+                res.status(200).header('x-auth-token',token).send( [_.pick(user, ['_id','firstName','lastName','email','activeStatus']), {'success':true}]);
             }
             else {
                 return next(err); 
