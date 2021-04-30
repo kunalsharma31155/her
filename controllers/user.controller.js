@@ -9,7 +9,7 @@ const User = mongoose.model('User');
 module.exports.register =  async (req,res,next) => {
     try{
         let user;
-        user = await User.findOne({ $or: [ { email: req.body.email }, { userLoginId: req.body.userLoginId } ] });
+        user = await User.findOne({ email: req.body.email });
         if(user) return res.status(400).json({ type: "Invalid", msg: "User is already registered with this Email Or UserId."});
         
         user = new User(_.pick(req.body, ['firstName','lastName','dateOfBirth','email','password','countryCode','phoneNo','userLoginId','latitude','longitude','activeStatus']));
@@ -33,7 +33,7 @@ module.exports.register =  async (req,res,next) => {
 
 module.exports.loginUser =  async (req,res,next) => {
     try{
-        let user = await User.findOne({ $or: [ { email: req.body.email.toLowerCase() }, { userLoginId: req.body.email.toLowerCase() } ] });
+        let user = await User.findOne({ email: req.body.email.toLowerCase() });
         if(!user) { return res.status(400).json({ type: "Not Found", msg: "Invalid  Email Or Password"}); }
         else {
             const validPassword = await bcrypt.compare(req.body.password, user.password);
